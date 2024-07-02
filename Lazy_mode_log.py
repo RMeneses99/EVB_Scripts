@@ -99,7 +99,7 @@ def run_analysis(folder_path):
             breseq_command = [
                 "breseq",
                 "-p", "-j", "16", "-b", "30", "-m", "20",
-                "-o", {sample_name},
+                "-o", sample_name,
                 "-r", reference_genome2,
                 os.path.join(folder_path, f"CLEAN_TRIM_{pair1}"),
                 os.path.join(folder_path, f"CLEAN_TRIM_{pair2}"),

@@ -1,0 +1,27 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job stats:
+job      count
+-----  -------
+fastp        1
+total        1
+
+Select jobs to execute...
+
+[Fri Jul 19 11:40:58 2024]
+rule fastp:
+    input: IL10KO_SPF_M8_D371_RI_I_L8_R1.fastq.gz, IL10KO_SPF_M8_D371_RI_I_L8_R2.fastq.gz
+    output: fastp/IL10KO_SPF_M8_D371_RI_I_L8_R1.fastq.gz, fastp/IL10KO_SPF_M8_D371_RI_I_L8_R2.fastq.gz
+    jobid: 0
+    reason: Missing output files: fastp/IL10KO_SPF_M8_D371_RI_I_L8_R1.fastq.gz, fastp/IL10KO_SPF_M8_D371_RI_I_L8_R2.fastq.gz
+    resources: tmpdir=/tmp
+
+
+        fastp -q 20 -u 50 --length_required 100 --dedup 1 --detect_adapter_for_pe -p 3 -5 -M 20 -W 4 -c             -i IL10KO_SPF_M8_D371_RI_I_L8_R1.fastq.gz -I IL10KO_SPF_M8_D371_RI_I_L8_R2.fastq.gz -o fastp/IL10KO_SPF_M8_D371_RI_I_L8_R1.fastq.gz -O fastp/IL10KO_SPF_M8_D371_RI_I_L8_R2.fastq.gz --html /dev/null --json /dev/null
+        
+[Fri Jul 19 11:41:54 2024]
+Finished job 0.
+1 of 1 steps (100%) done
+Complete log: .snakemake/log/2024-07-19T114057.905116.snakemake.log

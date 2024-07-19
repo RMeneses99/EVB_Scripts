@@ -1,0 +1,45 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job stats:
+job        count
+-------  -------
+all            1
+bbsplit        1
+fastp          1
+total          3
+
+Select jobs to execute...
+
+[Fri Jul 19 16:09:35 2024]
+rule fastp:
+    input: IL10KO_SPF_M8_D371_RI_I_L8_R1.fastq.gz, IL10KO_SPF_M8_D371_RI_I_L8_R2.fastq.gz
+    output: fastp/TRIM_{raw_reads[0]}, fastp/TRIM_{raw_reads[1]}
+    jobid: 2
+    reason: Missing output files: fastp/TRIM_{raw_reads[1]}, fastp/TRIM_{raw_reads[0]}
+    threads: 16
+    resources: tmpdir=/tmp
+
+
+        fastp -q 20 -u 50 --length_required 100 --dedup 1 --detect_adapter_for_pe -p 3 -5 -M 20 -W 4 -c             -i IL10KO_SPF_M8_D371_RI_I_L8_R1.fastq.gz -I IL10KO_SPF_M8_D371_RI_I_L8_R2.fastq.gz -o fastp/TRIM_{raw_reads[0]} -O fastp/TRIM_{raw_reads[1]} --html /dev/null --json /dev/null
+        
+[Fri Jul 19 16:10:38 2024]
+Finished job 2.
+1 of 3 steps (33%) done
+Select jobs to execute...
+
+[Fri Jul 19 16:10:38 2024]
+rule bbsplit:
+    input: fastp/TRIM_{raw_reads[0]}, fastp/TRIM_{raw_reads[1]}
+    output: decontam/IL10KO_SPF_M8_D371_RI_I__NC_000913.2.fastq.gz, decontam/IL10KO_SPF_M8_D371_RI_I__CP054663.fastq.gz, decontam/IL10KO_SPF_M8_D371_RI_I__CP054664.fastq.gz, decontam/IL10KO_SPF_M8_D371_RI_I__CP054662.1_IS_annotated.fastq.gz
+    jobid: 1
+    reason: Missing output files: decontam/IL10KO_SPF_M8_D371_RI_I__NC_000913.2.fastq.gz, decontam/IL10KO_SPF_M8_D371_RI_I__CP054663.fastq.gz, decontam/IL10KO_SPF_M8_D371_RI_I__CP054664.fastq.gz, decontam/IL10KO_SPF_M8_D371_RI_I__CP054662.1_IS_annotated.fastq.gz; Input files updated by another job: fastp/TRIM_{raw_reads[1]}, fastp/TRIM_{raw_reads[0]}
+    threads: 16
+    resources: tmpdir=/tmp
+
+RuleException in rule bbsplit in file /home/EVB_Scripts/Snakefile, line 49:
+AttributeError: 'OutputFiles' object has no attribute 'comb', when formatting the following:
+
+        bbsplit.sh in1={input.r1} in2={input.r2} ambig2=toss             ref={params.ref_genomes} basename={output.comb}
+        
